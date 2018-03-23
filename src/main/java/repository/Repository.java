@@ -135,7 +135,7 @@ public class Repository {
 				tok = tokens[i];
 				cons = tok.split(",");
 				meds = cons[3].split("\\+");
-				Consultation consultation = new Consultation(cons[0],cons[1],cons[2],med,cons[4]);
+				Consultation consultation = new Consultation(cons[0],cons[1],cons[2],med,cons[3]);
 				for (int j = 0; j < meds.length-1; j++)
 				{
 					consultation.getMeds().add(meds[j]);
