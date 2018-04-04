@@ -1,10 +1,14 @@
 package controller;
 
 
+import exceptions.ConsultationException;
 import exceptions.PatientException;
 import model.Patient;
 import org.junit.Test;
 import repository.Repository;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DoctorControllerTest {
     @Test
@@ -116,6 +120,34 @@ public class DoctorControllerTest {
             assert (false);
         }
         catch (PatientException e){
+            assert (true);
+        }
+    }
+
+    @Test
+    public void addConsultationWithNullMeds() throws Exception {
+        Repository repository = new Repository("src/main/FilePatients.txt", "src/main/FileConsultations.txt");
+        DoctorController dc = new DoctorController(repository);
+        try {
+            dc.addPatient(new Patient("John Doe", "1234567890123", "Some address"));
+            dc.addConsultation("1", "1234567890123", "Cold", null, "12-12-2018");
+            assert (false);
+        }
+        catch (ConsultationException e){
+            assert (true);
+        }
+    }
+
+    @Test
+    public void addConsultationWithNullConsID() throws Exception {
+        Repository repository = new Repository("src/main/FilePatients.txt", "src/main/FileConsultations.txt");
+        DoctorController dc = new DoctorController(repository);
+        try {
+            dc.addPatient(new Patient("John Doe", "1234567890123", "Some address"));
+            dc.addConsultation(null, "1234567890123", "Cold", Arrays.asList("Med1", "Med2"), "12-12-2018");
+            assert (false);
+        }
+        catch (ConsultationException e){
             assert (true);
         }
     }
