@@ -56,7 +56,7 @@ public class DoctorController {
 				 * + i); System.out.println("Proof : " +
 				 * ConsultationList.get(i).toString());
 				 */
-				return i - 1;
+				return i;
 			}
 		}
 
@@ -101,7 +101,7 @@ public class DoctorController {
 			try {
 				rep.saveConsultationToFile(c);
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 
 			Patient p = new Patient();

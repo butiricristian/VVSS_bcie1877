@@ -45,7 +45,7 @@ public class Repository {
 			out.print("");
 			out.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		consultationList = new ArrayList<Consultation>();
@@ -145,7 +145,7 @@ public class Repository {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		return lp;	
