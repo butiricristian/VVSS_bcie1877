@@ -1,0 +1,258 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DoctorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DoctorController (controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DoctorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (4/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    24.3%
+  </span>
+  <span class="absValue">
+    (18/ 74)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import exceptions.ConsultationException;
+<i>4</i>&nbsp;import exceptions.PatientException;
+<i>5</i>&nbsp;import model.Consultation;
+<i>6</i>&nbsp;import model.Patient;
+<i>7</i>&nbsp;import repository.Repository;
+<i>8</i>&nbsp;import validator.PatientValidation;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.io.IOException;
+<i>11</i>&nbsp;import java.util.ArrayList;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;public class DoctorController {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;	private List&lt;Patient&gt; PatientList;
+<i>17</i>&nbsp;	private List&lt;Consultation&gt; ConsultationList;
+<i>18</i>&nbsp;	private Repository rep;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;	/** Constructors */
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;	public DoctorController(Repository rep) {</b>
+<b class="fc"><i>23</i>&nbsp;		this.rep = rep;</b>
+<b class="fc"><i>24</i>&nbsp;		this.PatientList = rep.getPatientList();</b>
+<b class="fc"><i>25</i>&nbsp;		this.ConsultationList = rep.getConsultationList();</b>
+<i>26</i>&nbsp;		// Get list from file in order to avoid duplicates.
+<b class="fc"><i>27</i>&nbsp;	}</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;	/** Getters */
+<i>30</i>&nbsp;	public List&lt;Patient&gt; getPatientList() {
+<b class="fc"><i>31</i>&nbsp;		return PatientList;</b>
+<i>32</i>&nbsp;	}
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;	public List&lt;Consultation&gt; getConsultationList() {
+<b class="nc"><i>35</i>&nbsp;		return ConsultationList;</b>
+<i>36</i>&nbsp;	}
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;	public void setConsulationList(List&lt;Consultation&gt; consultationList) {
+<b class="nc"><i>39</i>&nbsp;		ConsultationList = consultationList;</b>
+<b class="nc"><i>40</i>&nbsp;	}</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;	public int getPatientBySSN(String SSN) {
+<b class="nc"><i>43</i>&nbsp;		for (int i = 0; i &lt; PatientList.size(); i++) {</b>
+<b class="nc"><i>44</i>&nbsp;			if (PatientList.get(i).getSSN().equals(SSN))</b>
+<b class="nc"><i>45</i>&nbsp;				return i;</b>
+<i>46</i>&nbsp;		}
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;		return -1;</b>
+<i>49</i>&nbsp;	}
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;	public int getConsByID(String ID) {
+<b class="nc"><i>52</i>&nbsp;		for (int i = 0; i &lt; ConsultationList.size(); i++) {</b>
+<b class="nc"><i>53</i>&nbsp;			if (ConsultationList.get(i).getConsID().compareTo(ID) == 0) {</b>
+<i>54</i>&nbsp;				/*
+<i>55</i>&nbsp;				 * System.out.println(&quot;I proud to have found &quot; + ID + &quot; here: &quot;
+<i>56</i>&nbsp;				 * + i); System.out.println(&quot;Proof : &quot; +
+<i>57</i>&nbsp;				 * ConsultationList.get(i).toString());
+<i>58</i>&nbsp;				 */
+<b class="nc"><i>59</i>&nbsp;				return i - 1;</b>
+<i>60</i>&nbsp;			}
+<i>61</i>&nbsp;		}
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;		return -1;</b>
+<i>64</i>&nbsp;	}
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;	public Repository getRepository() {
+<b class="nc"><i>67</i>&nbsp;		return rep;</b>
+<i>68</i>&nbsp;	}
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;	/** Others */
+<i>71</i>&nbsp;	public void addPatient(Patient p) throws PatientException {
+<b class="fc"><i>72</i>&nbsp;		if (p.getName() != null &amp;&amp; p.getSSN() != null &amp;&amp; p.getAddress() != null) {</b>
+<b class="fc"><i>73</i>&nbsp;			PatientValidation.nameValidate(p.getName());</b>
+<b class="fc"><i>74</i>&nbsp;			PatientValidation.ssnValidate(p.getSSN());</b>
+<b class="fc"><i>75</i>&nbsp;			PatientValidation.addressValidate(p.getAddress());</b>
+<i>76</i>&nbsp;		} else {
+<b class="nc"><i>77</i>&nbsp;			throw new PatientException(&quot;Null fields&quot;);</b>
+<i>78</i>&nbsp;		}
+<b class="fc"><i>79</i>&nbsp;		PatientList.add(p);</b>
+<i>80</i>&nbsp;		try {
+<b class="fc"><i>81</i>&nbsp;			rep.savePatientToFile(p);</b>
+<b class="nc"><i>82</i>&nbsp;		} catch (IOException e) {</b>
+<b class="nc"><i>83</i>&nbsp;			e.printStackTrace();</b>
+<b class="fc"><i>84</i>&nbsp;		}</b>
+<b class="fc"><i>85</i>&nbsp;	}</b>
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;	// adding of a new consultation for a patient (consultation date,
+<i>88</i>&nbsp;	// diagnostic, prescription drugs)
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;	public void addConsultation(String consID, String patientSSN, String diag,
+<i>91</i>&nbsp;			List&lt;String&gt; meds, String date) throws ConsultationException {
+<b class="fc"><i>92</i>&nbsp;		if (meds == null)</b>
+<b class="fc"><i>93</i>&nbsp;			throw new ConsultationException(&quot;meds is null&quot;);</b>
+<i>94</i>&nbsp;
+<b class="fc"><i>95</i>&nbsp;		if (consID != null &amp;&amp; patientSSN != null</b>
+<b class="nc"><i>96</i>&nbsp;				&amp;&amp; diag != null &amp;&amp; meds.size() != 0</b>
+<b class="nc"><i>97</i>&nbsp;				&amp;&amp; this.getPatientBySSN(patientSSN) &gt; -1</b>
+<b class="nc"><i>98</i>&nbsp;				&amp;&amp; this.getConsByID(consID) == -1) {</b>
+<b class="nc"><i>99</i>&nbsp;			Consultation c = new Consultation(consID, patientSSN, diag, meds, date);</b>
+<b class="nc"><i>100</i>&nbsp;			ConsultationList.add(c);</b>
+<i>101</i>&nbsp;			try {
+<b class="nc"><i>102</i>&nbsp;				rep.saveConsultationToFile(c);</b>
+<b class="nc"><i>103</i>&nbsp;			} catch (IOException e) {</b>
+<b class="nc"><i>104</i>&nbsp;				e.printStackTrace();</b>
+<b class="nc"><i>105</i>&nbsp;			}</b>
+<i>106</i>&nbsp;
+<b class="nc"><i>107</i>&nbsp;			Patient p = new Patient();</b>
+<b class="nc"><i>108</i>&nbsp;			p = this.getPatientList().get(</b>
+<b class="nc"><i>109</i>&nbsp;					this.getPatientBySSN(c.getPatientSSN()));</b>
+<b class="nc"><i>110</i>&nbsp;			p.setConsNum(p.getConsNum() + 1);</b>
+<b class="nc"><i>111</i>&nbsp;		}</b>
+<i>112</i>&nbsp;		else {
+<b class="fc"><i>113</i>&nbsp;			throw new ConsultationException(&quot;invalid arguments&quot;);</b>
+<i>114</i>&nbsp;		}
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;	}</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;	public List&lt;Patient&gt; getPatientsWithDisease(String disease) throws PatientException {
+<b class="nc"><i>119</i>&nbsp;		List&lt;Consultation&gt; c = this.getConsultationList();</b>
+<b class="nc"><i>120</i>&nbsp;		List&lt;Patient&gt; p = new ArrayList&lt;Patient&gt;();</b>
+<b class="nc"><i>121</i>&nbsp;		if (disease != null) {</b>
+<b class="nc"><i>122</i>&nbsp;			if (disease.length() == 0) {</b>
+<b class="nc"><i>123</i>&nbsp;				throw new PatientException(&quot;Empty disease provided&quot;);</b>
+<i>124</i>&nbsp;			}
+<b class="nc"><i>125</i>&nbsp;			int chk = 1;</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;			for (int i = 0; i &lt; c.size(); i++) {</b>
+<b class="nc"><i>128</i>&nbsp;				if (c.get(i).getDiag().toLowerCase()</b>
+<b class="nc"><i>129</i>&nbsp;						.contains(disease.toLowerCase())) // so that it is case</b>
+<i>130</i>&nbsp;															// insensitive
+<i>131</i>&nbsp;				{
+<b class="nc"><i>132</i>&nbsp;					for (int j = 0; j &lt; p.size(); j++) // verify patient was</b>
+<i>133</i>&nbsp;															// not already added
+<i>134</i>&nbsp;					{
+<b class="nc"><i>135</i>&nbsp;						if (p.get(j).getSSN().equals(c.get(i).getPatientSSN())) {</b>
+<b class="nc"><i>136</i>&nbsp;							chk = p.get(j).getConsNum();</b>
+<i>137</i>&nbsp;						}
+<i>138</i>&nbsp;					}
+<i>139</i>&nbsp;
+<b class="nc"><i>140</i>&nbsp;					if (chk == 1) {</b>
+<b class="nc"><i>141</i>&nbsp;						p.add(this.getPatientList().get(</b>
+<b class="nc"><i>142</i>&nbsp;								this.getPatientBySSN(c.get(i).getPatientSSN()))); // get</b>
+<i>143</i>&nbsp;																					// Patient
+<i>144</i>&nbsp;																					// by
+<i>145</i>&nbsp;																					// SSN
+<i>146</i>&nbsp;					}
+<b class="nc"><i>147</i>&nbsp;					chk = 1;</b>
+<i>148</i>&nbsp;				}
+<i>149</i>&nbsp;			}
+<i>150</i>&nbsp;
+<i>151</i>&nbsp;			// Sort the list
+<i>152</i>&nbsp;
+<b class="nc"><i>153</i>&nbsp;			Patient paux = new Patient();</b>
+<i>154</i>&nbsp;
+<b class="nc"><i>155</i>&nbsp;			for (int i = 0; i &lt; p.size(); i++)</b>
+<b class="nc"><i>156</i>&nbsp;				for (int j = i + 1; j &lt; p.size() - 1; j++)</b>
+<b class="nc"><i>157</i>&nbsp;					if (p.get(j - 1).getConsNum() &lt; p.get(j).getConsNum()) {</b>
+<b class="nc"><i>158</i>&nbsp;						paux = p.get(j - 1);</b>
+<b class="nc"><i>159</i>&nbsp;						p.set(j - 1, p.get(j));</b>
+<b class="nc"><i>160</i>&nbsp;						p.set(j, paux);</b>
+<i>161</i>&nbsp;					}
+<b class="nc"><i>162</i>&nbsp;		}</b>
+<i>163</i>&nbsp;		else {
+<b class="nc"><i>164</i>&nbsp;			throw new PatientException(&quot;Null disease parameter provided&quot;);</b>
+<i>165</i>&nbsp;		}
+<b class="nc"><i>166</i>&nbsp;		return p;</b>
+<i>167</i>&nbsp;	}
+<i>168</i>&nbsp;
+<i>169</i>&nbsp;	/*
+<i>170</i>&nbsp;	 * For debugging purposes public void printList() { for (int i = 0; i &lt;
+<i>171</i>&nbsp;	 * PatientList.size(); i++) {
+<i>172</i>&nbsp;	 * System.out.println(PatientList.get(i).toString()); } }
+<i>173</i>&nbsp;	 */
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-04-04 08:43</div>
+</div>
+</body>
+</html>
