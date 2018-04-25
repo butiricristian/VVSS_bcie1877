@@ -153,7 +153,7 @@ public class DoctorController {
 			Patient paux = new Patient();
 
 			for (int i = 0; i < p.size(); i++)
-				for (int j = i + 1; j < p.size() - 1; j++)
+				for (int j = i + 1; j < p.size(); j++)
 					if (p.get(j - 1).getConsNum() < p.get(j).getConsNum()) {
 						paux = p.get(j - 1);
 						p.set(j - 1, p.get(j));

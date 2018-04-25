@@ -125,6 +125,8 @@ public class DoctorControllerTest {
         }
     }
 
+
+    //For Lab3
     @Test
     public void addConsultationWithNullMeds() throws Exception {
         Repository repository = new Repository("src/main/FilePatients.txt", "src/main/FileConsultations.txt");
