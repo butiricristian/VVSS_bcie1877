@@ -59,6 +59,7 @@ public class BigBangTest {
         dc.addConsultation("13", "1111111111113", "Cold", Arrays.asList("Med1", "Med2"), "12-12-2018");
         dc.addConsultation("16", "1111111111113", "Cold", Arrays.asList("Med1", "Med2"), "12-12-2018");
         List<Patient> patients = dc.getPatientsWithDisease("Cold");
+
         assert(patients.get(0).getSSN().equals("1111111111111"));
         assert(patients.get(1).getSSN().equals("1111111111113"));
         assert(patients.get(2).getSSN().equals("1111111111112"));
