@@ -154,9 +154,9 @@ public class DoctorController {
 
 			for (int i = 0; i < p.size(); i++)
 				for (int j = i + 1; j < p.size(); j++)
-					if (p.get(j - 1).getConsNum() < p.get(j).getConsNum()) {
-						paux = p.get(j - 1);
-						p.set(j - 1, p.get(j));
+					if (p.get(i).getConsNum() < p.get(j).getConsNum()) {
+						paux = p.get(i);
+						p.set(i, p.get(j));
 						p.set(j, paux);
 					}
 		}

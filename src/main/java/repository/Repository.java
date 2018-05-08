@@ -153,50 +153,16 @@ public class Repository {
 	
 	public void savePatientToFile(Patient p) throws IOException		// save to file
 	{
-		int n=0;
-		BufferedReader in = new BufferedReader(new FileReader(patients));
-		while((in.readLine())!=null)
-			n++;
-		in.close();
-		String[] sl=new String[n];
-		String str;
-		int i=0;
-		in = new BufferedReader(new FileReader(patients));
-		while((str=in.readLine())!=null)
-		{
-			sl[i] = str;
-			i++;
-		}
-		in.close(); // append
-		FileWriter fw=new FileWriter(patients);
+		FileWriter fw = new FileWriter(patients, true);
 		PrintWriter out=new PrintWriter(fw);
-		for (i=1; i<sl.length-1; i++)
-			out.println(sl[i]);
 		out.println(p.toString());
 		out.close();
 	}
 	
 	public void saveConsultationToFile(Consultation c) throws IOException		// save to file
 	{
-		int n=0;
-		BufferedReader in = new BufferedReader(new FileReader(consultations));
-		while((in.readLine())!=null)
-			n++;
-		in.close();
-		String[] sl=new String[n];
-		String str;
-		int i=0;
-		in = new BufferedReader(new FileReader(consultations));
-		while((str=in.readLine())!=null)
-		{
-			sl[i] = str;
-			i++;
-		}
-		in.close(); // append
-		FileWriter fw=new FileWriter(consultations);
+		FileWriter fw = new FileWriter(consultations, true);
 		PrintWriter out=new PrintWriter(fw);
-		for (i=0; i<sl.length-1; i++)
-			out.println(sl[i]);
 		out.println(c.toString());
 		out.close();
 	}
